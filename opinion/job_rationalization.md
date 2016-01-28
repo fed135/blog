@@ -5,7 +5,7 @@
 
 ## The balance system
 
-Everytime I get a new job, I create this little text file, listing the pros of my new position. The stuff that mades me happy about the place, like friendly colleagues, an interesting project or the quality of their [coffee](http://www.businessinsider.com/the-one-office-perk-you-must-splurge-on-2011-3). And I also list the cons, the stuff that I don't like or that doesn't quite match my expectations. Things like less-than-average conditions, bad management or boring projects.
+Everytime I get a new job, I create this little text file, listing the pros of my new position. The stuff that makes me happy about the place, like friendly colleagues, an interesting project or the quality of their [coffee](http://www.businessinsider.com/the-one-office-perk-you-must-splurge-on-2011-3). And I also list the cons, the stuff that I don't like or that doesn't quite match my expectations. Things like less-than-average conditions, bad management or boring projects.
 
 I update this file regularly as I discover new aspects of the job or changes in my desires and ambitions. I find that there are good periods where I write more pros, and darker periods, where I slam a couple of cons to the list. After some time, I get a clear picture of my current level of enjoyment, fulfillment and the trending direction of this level.
 
