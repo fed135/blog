@@ -32,7 +32,7 @@ It's worth noting that older versions of node (v0.12 and releases prior to iojs)
 
   Ex: 
   
-    `
+    ```
     function MyCustomError(msg, data) {
         this.message = mgs;
         this.data = data;
@@ -40,11 +40,11 @@ It's worth noting that older versions of node (v0.12 and releases prior to iojs)
         // Don't extend Error
     }
     
-    if (error) throw 
-    `
+    if (error) throw new MyCustomError("Something happened");
+    ```
     
 
-- Use the Error.stackTraceLimit property to limit the number of parsed stack traces on accessing `'stack'`.
+- Use the Error.stackTraceLimit property of the `Error` class to limit the number of parsed stack traces on accessing `'stack'`.
   Default value is 10.
   
   Changing it to 1 made the stack request drop from 621ms to about 310ms.
