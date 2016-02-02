@@ -5,7 +5,12 @@
 
 [iterative process] - collaborators welcomed!
 
-## Errors
+## 1- Strict Mode
+
+A quick and easy way to get a small [performance boost](http://stackoverflow.com/questions/3145966/is-strict-mode-more-performant) is to add `'use strict';` at the top of your node files. This tells the compiler to be more strict about the kind of instructions you use. The main gain not being performance as such, since only a very small number of instructions will be optimized in this mode, but rather the number of runtime warnings you will get. These can help you flag bugs, potential mistakes and unoptimized sections in your app.
+
+
+## 2- Errors
 
     (new Error)
 
@@ -24,12 +29,26 @@ It's worth noting that older versions of node (v0.12 and releases prior to iojs)
 ### Alternatives and solutions
 
 - Use a custom Error system with hand-made classes - if you don't need the exact stack or the features of the `Error` class.
-  Ex: (link example framework)
+
+  Ex: 
+  
+    `
+    function MyCustomError(msg, data) {
+        this.message = mgs;
+        this.data = data;
+        
+        // Don't extend Error
+    }
+    
+    if (error) throw 
+    `
+    
 
 - Use the Error.stackTraceLimit property to limit the number of parsed stack traces on accessing `'stack'`.
   Default value is 10.
   
   Changing it to 1 made the stack request drop from 621ms to about 310ms.
+
   Ex:
 
     `Error.stackTraceLimit = 4;  // A pretty good starting point`
