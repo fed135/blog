@@ -8,7 +8,8 @@ The opinions presented here are my own and do not reflect my employer's.
 I'm aware this is an untraditionnal format, I chose it for a few reasons:
 
 - I'm comfortable in Github, it's a great platform
-- Files are easy to edit and insert styles, images or code inserts
+- Files are easy to edit
+- I can insert styles, images or code bits
 - It's free
 - No ads
 - I can invite collaborators or accept correction requests
