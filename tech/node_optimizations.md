@@ -52,3 +52,11 @@ It's worth noting that older versions of node (v0.12 and releases prior to iojs)
   Ex:
 
     `Error.stackTraceLimit = 4;  // A pretty good starting point`
+    
+## 3- I/O
+
+Writing or reading to disk and sending network requests are some of the most expensive types of operation.
+
+- Bundle
+- Cache
+
