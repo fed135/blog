@@ -1,14 +1,20 @@
 # A list of sweet v8/Node Optimizations
-**And stuff to look out for**
 
-**And solutions, to most issues**
+- Stuff to look out for
+- Setup 
+- Architecture
+- Best practices
+- etc.
 
 [iterative process] - collaborators welcomed!
+
+---
 
 ## 1- Strict Mode
 
 A quick and easy way to get a small [performance boost](http://stackoverflow.com/questions/3145966/is-strict-mode-more-performant) is to add `'use strict';` at the top of your node files. This tells the compiler to be more strict about the kind of instructions you use. The main gain not being performance as such, since only a very small number of instructions will be optimized in this mode, but rather the number of runtime warnings you will get. These can help you flag bugs, potential mistakes and unoptimized sections in your app.
 
+---
 
 ## 2- Errors
 
@@ -53,10 +59,50 @@ It's worth noting that older versions of node (v0.12 and releases prior to iojs)
 
     `Error.stackTraceLimit = 4;  // A pretty good starting point`
     
+---
+    
 ## 3- I/O
 
 Writing or reading to disk and sending network requests are some of the most expensive types of operation.
+[Latency diagram](https://gist.github.com/jboner/2841832)
 
-- Bundle
-- Cache
+### Alternatives and solutions
+
+- Bundle I/O calls
+
+Imagine network operations as some sort of ferry service. You need to move people and cars from one side to the other.
+Round-trips are slightly slower when you put more cars in, but it's nothing compared to the time required to go travel a full back and forth.
+
+The same goes for Database queries. It's [much faster](https://shyp.github.io/2015/07/13/speed-up-your-javascript-tests.html) to bundle DB calls.
+
+- Cache everything
+
+In-memory cache is extremely effcicent - when well used. You can either setup a small [node-cache](https://github.com/ptarjan/node-cache) or put [ngnix](https://www.nginx.com/) or similar in front of your service.
+
+---
+
+## 4- Application setup
+
+Node is extremely lightweight. There little to none overhead between I/O and disk operations - which it is bound by. Node is single-threaded and I/O instructions are queued in the system event-loop. Therefore, a good way to get more bang for your buck is - and this is my opinion only - small, non-blocking, stateless services that you can easily cluster. Avoid network communications when available with process messaging, messaging queues or [ipc](https://github.com/fed135/ipc-light).
+
+---
+
+## 5- Machine setup
+
+Most machines have system configurations that take in account the most common use cases. Disks configured for file-reading, sane ammount of parallel process limit, etc. 
+
+- Readahead:
+    
+Readahead is the size of the chunks that are read from storage at a time - before being processed. Mongo server configurations [strongly suggest](https://docs.mongodb.org/manual/administration/production-notes/) reducing that number to better match the size of your packets. Let's say your application sends a lot of small packets (through ipc) or reads tiny files from disk, you should drop that ammount considerably. In average, going from 4kb to 1kb will gain you considerable faster communication speed.
+
+Continuing on that note, having faster hardware will also impact ipc perfomances. Consider buying ssd disks for your stack.
+
+- Connection limit
+
+The number of concurrent connections is limited in most linux distros to 1024^2. This can be [fixed](https://mrotaru.wordpress.com/2013/10/10/scaling-to-12-million-concurrent-connections-how-migratorydata-did-it/)
+
+- File descriptors
+
+Finally, you will need to increase the number of allowed [file descriptors](http://www.cyberciti.biz/faq/linux-increase-the-maximum-number-of-open-files/) on your system. 
+
 
