@@ -1,28 +1,32 @@
-# A list of sweet v8/Node Optimizations
+# A list of stuff to check for when using Node
 
-- Stuff to look out for
-- Setup 
-- Architecture
-- Best practices
-- etc.
+## Table of content
+
+1- [Strict Mode](#1--strict-mode)
+2- [Errors](#2--errors)
+3- [I/O](#3--io)
+4- [Application Setup](#4--application-setup)
+5- [Machine Setup](#5--machine-setup)
+6- [Socket Optimization](#6--socket-optimization)
 
 ---
 
 ## 1- Strict Mode
 
-This isn't a [performance boost](http://stackoverflow.com/questions/3145966/is-strict-mode-more-performant) per se, but it is always good to add `'use strict';` at the top of your node files. This tells the compiler to be more strict about the kind of instructions you use. Only a very small number of instructions will be optimized in this mode, the real gain is the number of pre-runtime warnings you will get. These can help you flag bugs, potential mistakes and unoptimized sections in your app before they happen in production!
+Node is compiled Just-in-Time and unhandled exceptions cause the process to exit. Typing errors, type coercion, lost scopes and general bad practice make it hard to catch all errors during dev.
+
+### Alternatives and solutions
+
+This isn't a [performance boost](http://stackoverflow.com/questions/3145966/is-strict-mode-more-performant) per se, but it is always good to add `'use strict';` at the top of your node files. This tells the compiler to be more strict about the kind of instructions you use. Only a very small number of instructions will be optimized in this mode, the real gain is the number of pre-runtime warnings you will get. These can help you flag bugs, potential mistakes and unoptimized sections in your app before things break in production!
+
+[top](#table-of-content)
 
 ---
 
 ## 2- Errors
 
-    (new Error)
-
 Instantiating an `Error` Object eats up a lot of resources, namely because v8 will collect the stack info on creation.
 It takes around 71ms to create 10 000 instances on an average machine.
-
-
-    (new Error).stack
 
 Secondly, accessing the `'stack'` property of an `Error` Object will be painfully slow. It takes around 621ms to create and read the stack of 10 000 instances. 
 
@@ -57,6 +61,8 @@ It's worth noting that older versions of node (v0.12 and releases prior to iojs)
 
     `Error.stackTraceLimit = 4;  // A pretty good starting point`
     
+[top](#table-of-content)
+
 ---
     
 ## 3- I/O
@@ -81,6 +87,8 @@ In-memory cache is extremely effcicent - when well used. You can either setup a 
 
 Communicate directly with other Node processes, when possible or use non-ip protocols like [ipc](https://github.com/fed135/ipc-light)
 
+[top](#table-of-content)
+
 ---
 
 ## 4- Application setup
@@ -96,6 +104,8 @@ Design small, non-blocking and stateless services that you can easily cluster.
 - Leverage services and node asynchronicity
 
 For complex or CPU-intensive tasks you may be better off leveraging an external application doing that specifically (written in the language of your choice) and communicate with that process with node via events, thus not blocking the event-loop.
+
+[top](#table-of-content)
 
 ---
 
@@ -119,7 +129,11 @@ The number of concurrent connections is limited in most linux distros to 1024^2.
 
 Finally, you will need to increase the number of allowed [file descriptors](http://www.cyberciti.biz/faq/linux-increase-the-maximum-number-of-open-files/) on your system. 
 
-## 5 - Socket communications
+[top](#table-of-content)
+
+---
+
+## 6 - Socket Optimization
 
 Socket optimizing depends on the type of work you are accomplishing. It can be a mix of multiple - or none- of these strategies.
 All of these can be leveraged through [Kalm](https://github.com/fed135/Kalm)
@@ -145,3 +159,5 @@ This [Google protocol](https://developers.google.com/protocol-buffers/) is sort-
 - Timeout
 
 It is very important to manage your connection resources closely. This means adding `socket.setTimeout()` and listening for the `timeout` event to close the socket. Typically, 30 seconds is a pretty decent timeout. You may have to implement a reconnection behavior.
+
+[top](#table-of-content)
