@@ -8,6 +8,7 @@
 4- [Application Setup](#4--application-setup)  
 5- [Machine Setup](#5--machine-setup)  
 6- [Socket Optimization](#6--socket-optimization)  
+7- [Module Structure](#7--module-structure)
 
 ---
 
@@ -161,3 +162,41 @@ This [Google protocol](https://developers.google.com/protocol-buffers/) is sort-
 It is very important to manage your connection resources closely. This means adding `socket.setTimeout()` and listening for the `timeout` event to close the socket. Typically, 30 seconds is a pretty decent timeout. You may have to implement a reconnection behavior.
 
 [top](#table-of-content)
+
+---
+
+## 7- Module structure
+
+Modules can rapidly become very complex and hard to maintain. Even worst, sometimes memory leak can occur due to bad structuring of the module.
+
+### Alternatives and solutions
+
+Adopt a very strict formatting policy on where all of a module's requires, local variables and exports should be.
+Always remember that globaly declared variables inside a module are kept in memory.
+
+I found a good module structure for me to use is this:
+
+```
+/**
+ * Module Name
+ */
+ 
+'use strict';
+
+/* Requires ------------------------------------------------------------------*/
+
+// Put requires here
+
+/* Local variables -----------------------------------------------------------*/
+
+// Place all module variables or constants here
+
+/* Methods -------------------------------------------------------------------*/
+
+// Methods and classes go here
+
+/* Exports -------------------------------------------------------------------*/
+
+// Finaly, place exports here
+
+```
