@@ -25,4 +25,4 @@ I'm not getting stats on the number of views and I don't have a comment section 
 
 **Technical**
 
-- [Node Optimizations](http://github.com/fed135/blog/blob/master/tech/node_optimizations.md)
+- [Node Optimizations](http://github.com/fed135/blog/blob/master/tech/node_tips.md)
