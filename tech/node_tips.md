@@ -2,12 +2,12 @@
 
 ## Table of content
 
-1- [Strict Mode](#1--strict-mode)
-2- [Errors](#2--errors)
-3- [I/O](#3--io)
-4- [Application Setup](#4--application-setup)
-5- [Machine Setup](#5--machine-setup)
-6- [Socket Optimization](#6--socket-optimization)
+1- [Strict Mode](#1--strict-mode)  
+2- [Errors](#2--errors)  
+3- [I/O](#3--io)  
+4- [Application Setup](#4--application-setup)  
+5- [Machine Setup](#5--machine-setup)  
+6- [Socket Optimization](#6--socket-optimization)  
 
 ---
 
@@ -133,7 +133,7 @@ Finally, you will need to increase the number of allowed [file descriptors](http
 
 ---
 
-## 6 - Socket Optimization
+## 6- Socket Optimization
 
 Socket optimizing depends on the type of work you are accomplishing. It can be a mix of multiple - or none- of these strategies.
 All of these can be leveraged through [Kalm](https://github.com/fed135/Kalm)
